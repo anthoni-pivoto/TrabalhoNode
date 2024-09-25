@@ -18,6 +18,16 @@ con.connect(function (err) {
     console.log("Conectado!");
 });
 
+router.get('/home', (req, res) => {
+    // if(req.url == '/post/cadastro'){
+    // fs.readFile()
+    // }
+    fs.readFile('./front/home.html', function (err, data) {
+        res.write(data);
+        return res.end();
+    })
+})
+
 router.get('/show',(req,res) =>{
         var sql ="select pwd_user from tb_user where email = 'teste@gmail.com'"
         con.query(sql, function (err, result, fields) {
@@ -28,6 +38,9 @@ router.get('/show',(req,res) =>{
         con.end();
 })
 router.get('/cadastro', (req, res) => {
+    // if(req.url == '/post/cadastro'){
+    // fs.readFile()
+    // }
     fs.readFile('./front/cadastro_login.html', function (err, data) {
         res.write(data);
         return res.end();
