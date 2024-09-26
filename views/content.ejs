@@ -1,0 +1,87 @@
+<%- include('header'); %>
+    <div class="main-container">
+        <div class="feed-container">
+            <div class="post">
+                <div class="profile-pic">
+                    <img src="https://via.placeholder.com/50" alt="Foto de Perfil">
+                </div>
+                <div class="post-content">
+                    <div class="user-info">
+                        <span class="username">João Silva</span>
+                        <span class="handle">@joaosilva</span>
+                        <span class="time">· 1h</span>
+                    </div>
+                    <div class="text-content">
+                        <form action="cadastro-post" method="post">
+                            <label for="tag">Assunto</label>
+                            <select name="tag" id="tag">
+                                <option value="humor">Humor</option>
+                                <option value="ass-serio">Assunto sério</option>
+                                <option value="jogos">Jogos</option>
+                                <option value="midia">Filme/serie</option>
+                                <option value="anime">Anime</option>
+                                <option value="saude">Saúde</option>
+                            </select>
+                            <label for="post-content">No que você está pensando:</label>
+                            <input type="textarea" id="post-content" name="post-content">
+                            <input type="submit" value="Postar">
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feed-container">
+                <!-- Post 1 -->
+                <div class="post">
+                    <div class="profile-pic">
+                        <img src="https://via.placeholder.com/50" alt="Foto de Perfil">
+                    </div>
+                    <div class="post-content">
+                        <div class="user-info">
+                            <span class="username">João Silva</span>
+                            <span class="handle">@joaosilva</span>
+                            <span class="time">· 1h</span>
+                        </div>
+                        <div class="text-content">
+                            Esse é um exemplo de post simples inspirado no Twitter. #exemplo
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Post 2 -->
+                <div class="post">
+                    <div class="profile-pic">
+                        <img src="https://via.placeholder.com/50" alt="Foto de Perfil">
+                    </div>
+                    <div class="post-content">
+                        <div class="user-info">
+                            <span class="username">Maria Souza</span>
+                            <span class="handle">@mariasouza</span>
+                            <span class="time">· 2h</span>
+                        </div>
+                        <div class="text-content">
+                            Adorando trabalhar com front-end! 🌟 #desenvolvimentoweb
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Post 3 -->
+                <div class="post">
+                    <div class="profile-pic">
+                        <img src="https://via.placeholder.com/50" alt="Foto de Perfil">
+                    </div>
+                    <div class="post-content">
+                        <div class="user-info">
+                            <span class="username">Carlos Santos</span>
+                            <span class="handle">@carlossantos</span>
+                            <span class="time">· 3h</span>
+                        </div>
+                        <div class="text-content">
+                            Novidades chegando em breve, fiquem ligados! #technews
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+<%- include('footer'); %>

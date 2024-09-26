@@ -1,0 +1,171 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f8fa;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column; /* Altera a direção para coluna */
+    align-items: center; /* Centraliza os elementos no eixo vertical */
+}
+
+header {
+    width: 100%;
+    background-color: #4CAF50; /* Cor de fundo do header */
+    margin-right: 2%;
+    padding: 10px 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.main-container {
+    flex: 1; /* O conteúdo principal expande para ocupar o espaço restante */
+    padding: 20px;
+    background-color: #f5f5f5;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between; /* Distribui espaço entre os elementos */
+    align-items: center;
+    width: 100%;
+    margin: 0 auto; /* Centraliza o container */
+}
+
+/* Estilo para a seção dos botões */
+.nav-buttons {
+    display: flex;
+    gap: 15px; /* Espaçamento entre os botões */
+}
+
+/* Estilo individual dos botões */
+.nav-buttons button {
+    padding: 10px 15px;
+    border: none;
+    background-color: #ffffff; /* Cor de fundo dos botões */
+    color: #4CAF50; /* Cor do texto dos botões */
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+/* Efeito ao passar o mouse sobre os botões */
+.nav-buttons button:hover {
+    background-color: #e8f5e9;
+}
+
+/* Estilo da seção do logo */
+.logo img {
+    height: 40px;
+}
+
+/* Container principal do feed */
+.feed-container {
+    width: 100vh;
+    margin-top: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo individual para cada post */
+.post {
+    display: flex;
+    padding: 15px;
+    border-bottom: 1px solid #e1e8ed;
+}
+
+.post:last-child {
+    border-bottom: none;
+}
+
+/* Estilo para a foto de perfil */
+.profile-pic img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
+
+/* Estilo para o conteúdo do post */
+.post-content {
+    margin-left: 15px;
+    width: 100%;
+}
+
+/* Estilo para a área de informações do usuário */
+.user-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.username {
+    font-weight: bold;
+    color: #14171a;
+    margin-right: 5px;
+}
+
+.handle {
+    color: #657786;
+    margin-right: 5px;
+}
+
+.time {
+    color: #657786;
+}
+
+/* Estilo para o conteúdo textual do post */
+.text-content {
+    color: #14171a;
+    line-height: 1.5;
+}
+
+/* Efeito de hover no post */
+.post:hover {
+    background-color: #f0f8ff;
+    cursor: pointer;
+}
+
+footer {
+    height: 17vh;
+    width: 100%;
+    background-color: #333;
+    color: #f4f4f4;
+    padding: 20px 0;
+    text-align: center;
+}
+
+/* Container principal do footer */
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    flex-wrap: wrap; /* Permite quebra de linha em telas menores */
+}
+
+/* Estilo para cada coluna do footer */
+.footer-column {
+    flex: 1;
+    padding: 15px;
+    min-width: 200px; /* Largura mínima para cada coluna */
+}
+
+/* Título das colunas */
+.footer-column h3 {
+    font-size: 18px;
+    border-bottom: 2px solid #f4f4f4;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+/* Separação inferior do footer */
+.made-by {
+    padding-bottom: 2vh;
+    color: #e8f5e9;
+    text-align: center;
+    height: 3vh;
+    width: 100%;
+    background-color: #222;
+}

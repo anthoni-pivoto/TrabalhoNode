@@ -22,7 +22,7 @@ router.get('/home', (req, res) => {
     // if(req.url == '/post/cadastro'){
     // fs.readFile()
     // }
-    fs.readFile('./front/home.html', function (err, data) {
+    fs.readFile('./views/home.html', function (err, data) {
         res.write(data);
         return res.end();
     })
@@ -41,14 +41,14 @@ router.get('/cadastro', (req, res) => {
     // if(req.url == '/post/cadastro'){
     // fs.readFile()
     // }
-    fs.readFile('./front/cadastro_login.html', function (err, data) {
+    fs.readFile('./views/cadastro_login.html', function (err, data) {
         res.write(data);
         return res.end();
     })
 })
 
 router.get('/login', (req, res) => {
-    fs.readFile('./front/login.html', function (err, data) {
+    fs.readFile('./views/login.html', function (err, data) {
         res.write(data);
         return res.end();
     })
