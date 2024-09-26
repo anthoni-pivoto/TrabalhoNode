@@ -12,7 +12,7 @@
                         <span class="time">· 1h</span>
                     </div>
                     <div class="text-content">
-                        <form action="cadastro-post" method="post">
+                        <form action="/insert-post" method="post" enctype="multipart/form-data">
                             <label for="tag">Assunto</label>
                             <select name="tag" id="tag">
                                 <option value="humor">Humor</option>
@@ -24,6 +24,8 @@
                             </select>
                             <label for="post-content">No que você está pensando:</label>
                             <input type="textarea" id="post-content" name="post-content">
+                            <input type="file" name="arquivo"><br>
+                            <input type="submit">
                             <input type="submit" value="Postar">
                         </form>
                     </div>

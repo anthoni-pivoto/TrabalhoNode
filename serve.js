@@ -6,13 +6,11 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}))
 app.set('view engine', 'ejs')
 
+app.get('/home',function(req,res){
+  res.render('content-home.ejs');
+});
 
 app.use('/post', publicRoutes);
-
-app.get('/',function(req,res){
-    res.render('content.ejs');
-   });
-   
 
 app.use('/user', publicRoutes)
 
