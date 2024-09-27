@@ -6,13 +6,11 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}))
 app.set('view engine', 'ejs')
 
+app.use('/', publicRoutes);
+
 app.get('/home',function(req,res){
   res.render('content-home.ejs');
 });
-
-app.use('/post', publicRoutes);
-
-app.use('/user', publicRoutes)
 
 app.use('/views', express.static('views'));
       app.get('/views/style.css', (req, res) => {
@@ -20,4 +18,4 @@ app.use('/views', express.static('views'));
         res.sendFile(__dirname + '/views/style.css');
       });
       
-app.listen(3000, () => console.log("Servidor onlaine"));
+app.listen(2000, () => console.log("Servidor onlaine"));

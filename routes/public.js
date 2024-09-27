@@ -5,6 +5,17 @@ import * as formidable from 'formidable';
 import * as bcrypt from 'bcrypt';
 var saltRounds = 10;
 
+const app = express();
+app.use(express.json());
+app.use(express.urlencoded({extended: true}))
+app.set('view engine', 'ejs')
+
+app.use('/views', express.static('views'));
+      app.get('/views/style.css', (req, res) => {
+        res.setHeader('Content-Type', 'text/css');
+        res.sendFile(__dirname + '/views/style.css');
+      });
+
 const router = express.Router();
 
 var con = mysql.createConnection({
@@ -40,24 +51,11 @@ con.connect(function (err) {
 //         if (err) throw err;
 //         console.log("Constraint Criada");
 //     });
-
 //     con.end();
 // });
 
-router.get('/show', (req, res) => {
-    var sql = "select pwd_user from tb_user where email = 'teste@gmail.com'"
-    con.query(sql, function (err, result, fields) {
-        if (err) throw err;
-        console.log(result);
-        res.status(201).json(result);
-    });
-    con.end();
-})
 router.get('/cadastro', (req, res) => {
-    fs.readFile('./views/cadastro_login.html', function (err, data) {
-        res.write(data);
-        return res.end();
-    })
+    res.render('content-cadastro.ejs') 
 })
 
 router.get('/login', (req, res) => {
@@ -70,8 +68,8 @@ router.get('/login', (req, res) => {
 router.post('/insert-user', (req, res) => {
     var form = new formidable.IncomingForm();
     form.parse(req, function (err, fields, files) {
-        let newPassword = fields.pwd.toString();
-        bcrypt.hash(newPassword, saltRounds, function (err, hash) {
+        let data = fields.pwd.toString();
+        bcrypt.hash(data, saltRounds, function (err, hash) {
             var sql = "INSERT INTO tb_user (nm_user, email, pwd_user) VALUES ?";
             var values = [[fields.name, fields.email, hash]];
             con.query(sql, [values], function (err, result) {
