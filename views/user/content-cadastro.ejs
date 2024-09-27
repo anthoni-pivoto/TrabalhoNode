@@ -1,21 +1,23 @@
-<%- include('header'); %>
+<%- include('../header'); %>
     <div class="main-container">
         <div class="feed-container">
             <div class="form-container">
                 <h2>Cadastro</h2>
-                <form action="/insert-user" method="post">
-                    <label for="nome">Nome:</label>
+                <form action="/insert-user" method="post" enctype="multipart/form-data">
+                    <label for="name">Nome:</label>
                     <input type="text" id="name" name="name" required>
             
                     <label for="email">Email:</label>
                     <input type="email" id="email" name="email" required>
             
-                    <label for="senha">Senha:</label>
+                    <label for="pwd">Senha:</label>
                     <input type="password" id="pwd" name="pwd" required>
-            
+                    
+                    <input type="file" name="arquivo"><br>
+
                     <input type="submit" value="Cadastrar">
                 </form>
             </div>
         </div>
     </div>    
-<%- include('footer'); %>
+<%- include('../footer'); %>

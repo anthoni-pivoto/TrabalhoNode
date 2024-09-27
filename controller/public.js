@@ -1,20 +1,9 @@
-import express, { response } from 'express';
+import express from 'express';
 import mysql from 'mysql';
 import fs from 'fs';
 import * as formidable from 'formidable';
-import * as bcrypt from 'bcrypt';
-var saltRounds = 10;
-
-const app = express();
-app.use(express.json());
-app.use(express.urlencoded({extended: true}))
-app.set('view engine', 'ejs')
-
-app.use('/views', express.static('views'));
-      app.get('/views/style.css', (req, res) => {
-        res.setHeader('Content-Type', 'text/css');
-        res.sendFile(__dirname + '/views/style.css');
-      });
+import bcrypt from 'bcrypt';
+const saltRounds = 10;
 
 const router = express.Router();
 
@@ -32,31 +21,28 @@ con.connect(function (err) {
 // con.connect(function (err) {
 //     if (err) throw err;
 //     console.log("Conectado!");
-//     var sql = "CREATE TABLE tb_post (id_post INT AUTO_INCREMENT PRIMARY KEY,id_user int, text VARCHAR(500), tag VARCHAR(30))";
+//     var sql = "CREATE TABLE tb_post (id_post INT AUTO_INCREMENT PRIMARY KEY,id_user int, text VARCHAR(500), tag VARCHAR(30), arquivo varchar(255))";
 //     con.query(sql, function (err, result) {
 //         if (err) throw err;
 //         console.log("Tabela post criada");
 //     });
 //     if (err) throw err;
 //     console.log("Conectado!");
-//     var sql = "CREATE TABLE tb_user (id_user INT AUTO_INCREMENT PRIMARY KEY, nm_user varchar(255), email VARCHAR(255), pwd_user VARCHAR(255))";
+//     var sql = "CREATE TABLE tb_user (id_user INT AUTO_INCREMENT PRIMARY KEY, nm_user varchar(255), email VARCHAR(255), pwd_user VARCHAR(255), prof_pic varchar(255))";
 //     con.query(sql, function (err, result) {
 //         if (err) throw err;
 //         console.log("Tabela user criada");
 //     });
-//     if (err) throw err;
-//     console.log("Conectado!");
-//     var sql = "ALTER TABLE tb_post ADD CONSTRAINT FK_post_user FOREIGN KEY (id_user) REFERENCES tb_user(id_user)";
-//     con.query(sql, function (err, result) {
-//         if (err) throw err;
-//         console.log("Constraint Criada");
-//     });
+//     // if (err) throw err;
+//     // console.log("Conectado!");
+//     // var sql = "ALTER TABLE tb_post ADD CONSTRAINT FK_post_user FOREIGN KEY (id_user) REFERENCES tb_user(id_user)";
+//     // con.query(sql, function (err, result) {
+//     //     if (err) throw err;
+//     //     console.log("Constraint Criada");
+//     // });
+
 //     con.end();
 // });
-
-router.get('/cadastro', (req, res) => {
-    res.render('content-cadastro.ejs') 
-})
 
 router.get('/login', (req, res) => {
     fs.readFile('./views/login.html', function (err, data) {
@@ -68,26 +54,22 @@ router.get('/login', (req, res) => {
 router.post('/insert-user', (req, res) => {
     var form = new formidable.IncomingForm();
     form.parse(req, function (err, fields, files) {
-        let data = fields.pwd.toString();
-        bcrypt.hash(data, saltRounds, function (err, hash) {
-            var sql = "INSERT INTO tb_user (nm_user, email, pwd_user) VALUES ?";
-            var values = [[fields.name, fields.email, hash]];
+            var sql = "INSERT INTO tb_user (nm_user, email, pwd_user, prof_pic) VALUES ?";
+            var values = [[fields.name, fields.email, fields.pwd.toString(), files.arquivo[0]]];
             con.query(sql, [values], function (err, result) {
                 if (err) throw err;
                 console.log("Numero de registros inseridos: " + result.affectedRows);
-            });
         });
         res.write("Dados inseridos no Banco com Sucesso");
         res.end();
     });
-
 })
 
 router.post('/insert-post', (req, res) => {
     var form = new formidable.IncomingForm();
     form.parse(req, function (err, fields, files) {
-            var sql = "INSERT INTO tb_post (id_user, text, tag) VALUES ?";
-            var values = [[1, fields.text, fields.tag]];
+            var sql = "INSERT INTO tb_post (id_user, text, tag, arquivo) VALUES ?";
+            var values = [[1, fields.text.toString(), fields.tag, files.arquivo[0]]];
             con.query(sql, [values], function (err, result) {
                 if (err) throw err;
                 console.log("Numero de registros inseridos: " + result.affectedRows);
@@ -114,7 +96,7 @@ router.post('/verifica-login', (req, res) => {
                         res.end();
                     } else {
                         res.write("Não bateu zé");
-                        res.end;
+                        res.end();
                     }
                 })
             }

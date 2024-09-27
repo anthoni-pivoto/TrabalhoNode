@@ -1,5 +1,5 @@
 import express from 'express';
-import publicRoutes from './routes/public.js'
+import publicRoutes from './controller/public.js'
 
 const app = express();
 app.use(express.json());
@@ -9,8 +9,12 @@ app.set('view engine', 'ejs')
 app.use('/', publicRoutes);
 
 app.get('/home',function(req,res){
-  res.render('content-home.ejs');
+  res.render('./post/content-home.ejs');
 });
+
+app.get('/cadastro', function(req, res){
+  res.render('./user/content-cadastro.ejs');
+})
 
 app.use('/views', express.static('views'));
       app.get('/views/style.css', (req, res) => {

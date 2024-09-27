@@ -1,4 +1,4 @@
-<%- include('header'); %>
+<%- include('../header'); %>
     <div class="main-container">
         <div class="feed-container">
             <div class="post">
@@ -22,8 +22,8 @@
                                 <option value="anime">Anime</option>
                                 <option value="saude">Saúde</option>
                             </select>
-                            <label for="post-content">No que você está pensando:</label>
-                            <input type="textarea" id="post-content" name="post-content">
+                            <label for="text">No que você está pensando:</label>
+                            <input type="textarea" id="text" name="text">
                             <input type="file" name="arquivo"><br>
                             <input type="submit" value="Postar">
                         </form>
@@ -85,4 +85,4 @@
             </div>
         </div>
     </div>    
-<%- include('footer'); %>
+<%- include('../footer'); %>
