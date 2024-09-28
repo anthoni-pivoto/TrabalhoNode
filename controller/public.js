@@ -3,7 +3,15 @@ import mysql from 'mysql';
 import fs from 'fs';
 import * as formidable from 'formidable';
 import bcrypt from 'bcrypt';
+import { fileURLToPath } from 'url';
+import * as path from 'path';
+import { isBuffer } from 'util';
+import session from 'express-session';
+
 const saltRounds = 10;
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const router = express.Router();
 
@@ -36,63 +44,45 @@ con.connect(function (err) {
 //     con.end();
 // });
 
-router.get('/login', (req, res) => {
-    fs.readFile('./views/login.html', function (err, data) {
-        res.write(data);
-        return res.end();
-    })
-})
+
 
 router.post('/insert-user', (req, res) => {
     var form = new formidable.IncomingForm();
     form.parse(req, function (err, fields, files) {
-            var sql = "INSERT INTO tb_user (nm_user, email, nickname, pwd_user, prof_pic) VALUES ?";
-            var values = [[fields.name, fields.email,fields.nickname, fields.pwd.toString(), files.arquivo[0]]];
-            con.query(sql, [values], function (err, result) {
-                if (err) throw err;
-                console.log("Numero de registros inseridos: " + result.affectedRows);
+        var oldpath = files.arquivo[0].filepath;
+        var ext = path.extname(files.arquivo[0].originalFilename);
+        var nameimg = files.arquivo[0].newFilename + ext;
+        var newpath = path.join(__dirname, '../public/imagens/', nameimg);
+        fs.rename(oldpath, newpath, function (err) {
+            if (err) console.log('nao deu pra renomear');
+        })
+        var sql = "INSERT INTO tb_user (nm_user, email, nickname, pwd_user, prof_pic) VALUES ?";
+        var values = [[fields.name, fields.email, fields.nickname, fields.pwd.toString(), nameimg]];
+        con.query(sql, [values], function (err, result) {
+            if (err) throw err;
+            console.log("Numero de registros inseridos: " + result.affectedRows);
+            res.redirect('/home');
         });
-        res.write("Dados inseridos no Banco com Sucesso");
-        res.end();
     });
 })
 
 router.post('/insert-post', (req, res) => {
     var form = new formidable.IncomingForm();
     form.parse(req, function (err, fields, files) {
-            var sql = "INSERT INTO tb_post (id_user, text, tag, arquivo) VALUES ?";
-            var values = [[1, fields.text.toString(), fields.tag, files.arquivo[0]]];
-            con.query(sql, [values], function (err, result) {
-                if (err) throw err;
-                console.log("Numero de registros inseridos: " + result.affectedRows);
-        });
-        res.write("Dados inseridos no Banco com Sucesso");
-        res.end();
-    });
-
-})
-
-router.post('/verifica-login', (req, res) => {
-    var form = new formidable.IncomingForm();
-    form.parse(req, function (err, fields, files) {
-        var senha = fields.pwd.toString();
-        var sql = "select pwd_user from tb_user where email = '" + fields.email + "'";
-        con.query(sql, function (err, result) {
-            if (err) throw err;
-            var hash = result[0]['pwd_user'].toString();
-            if (result.length) {
-                bcrypt.compare(senha, hash, function (err, resultado) {
-                    if (err) throw err;
-                    if (resultado) {
-                        res.write("Login bem feito");
-                        res.end();
-                    } else {
-                        res.write("Não bateu zé");
-                        res.end();
-                    }
-                })
-            }
+        var oldpath = files.arquivo[0].filepath;
+        var ext = path.extname(files.arquivo[0].originalFilename);
+        var nameimg = files.arquivo[0].newFilename + ext;
+        var newpath = path.join(__dirname, '../public/imagens/', nameimg);
+        fs.rename(oldpath, newpath, function (err) {
+            if (err) console.log('nao deu pra renomear');
         })
+        var sql = "INSERT INTO tb_post (id_user, text, tag, arquivo) VALUES ?";
+        var values = [[1, fields.text.toString(), fields.tag, nameimg]];
+        con.query(sql, [values], function (err, result) {
+            if (err) throw err;
+            console.log("Numero de registros inseridos: " + result.affectedRows);
+            res.redirect('/home');
+        });
     });
 })
 

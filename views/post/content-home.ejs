@@ -34,18 +34,18 @@
             <% if (dadosPost){dadosPost.forEach(function(dados){ %>
                     <div class="post">
                         <div class="profile-pic">
-                            <img src="https://via.placeholder.com/50" alt="Foto de Perfil">
+                            <img src="imagens/<%=dados.prof_pic%>" alt="Foto de Perfil">
                         </div>
                         <div class="post-content">
                             <div class="user-info">
                                 <span class="username"><%= dados.nm_user %></span>
                                 <span class="handle">@<%= dados.nickname %></span>
-                                <span class="time">·<%= dados.data %></span>
-                                <span class="tag"> <%= dados.tag %></span>
+                                <span class="time"> · <% var data_info = dados.data_dif - dados.data%> <%= data_info%> d</span>
+                                <span class="tag"> · <%= dados.tag %></span>
                             </div>
                             <div class="text-content">
                                 <%= dados.text %><br>
-                                <%= dados.arquivo %>
+                                <img src="imagens/<%=dados.arquivo %>" class="mx-auto d-block" style ="height:100px"/>
                             </div>
                         </div>
                     </div>
