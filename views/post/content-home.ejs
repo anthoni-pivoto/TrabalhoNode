@@ -29,26 +29,27 @@
                         </form>
                     </div>
                 </div>
-            </div>
-
-            <div class="feed-container">
-                <!-- Post 1 -->
-                <div class="post">
-                    <div class="profile-pic">
-                        <img src="https://via.placeholder.com/50" alt="Foto de Perfil">
-                    </div>
-                    <div class="post-content">
-                        <div class="user-info">
-                            <span class="username">João Silva</span>
-                            <span class="handle">@joaosilva</span>
-                            <span class="time">· 1h</span>
+            </div>  
+            <div class="feed-container"></div>
+            <% if (dadosPost){dadosPost.forEach(function(dados){ %>
+                    <div class="post">
+                        <div class="profile-pic">
+                            <img src="https://via.placeholder.com/50" alt="Foto de Perfil">
                         </div>
-                        <div class="text-content">
-                            Esse é um exemplo de post simples inspirado no Twitter. #exemplo
+                        <div class="post-content">
+                            <div class="user-info">
+                                <span class="username"><%= dados.nm_user %></span>
+                                <span class="handle">@<%= dados.nickname %></span>
+                                <span class="time">·<%= dados.data %></span>
+                                <span class="tag"> <%= dados.tag %></span>
+                            </div>
+                            <div class="text-content">
+                                <%= dados.text %><br>
+                                <%= dados.arquivo %>
+                            </div>
                         </div>
                     </div>
-                </div>
-
+                <% }) } %>
                 <!-- Post 2 -->
                 <div class="post">
                     <div class="profile-pic">
@@ -84,5 +85,6 @@
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
+    <br>    
 <%- include('../footer'); %>
