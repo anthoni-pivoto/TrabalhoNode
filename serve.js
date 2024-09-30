@@ -33,38 +33,59 @@ app.get('/home', function (req, res) {
     if (err) {
       console.log('deu ruim aqui em')
     };
-    res.render('./post/content-home.ejs', { dadosPost: result });
+    if(req.session.loggedin = false){
+      if(err) throw err;
+      res.render('./post/content-home.ejs', { dadosPost: result, session: null, dadosProf: null});
+    }else{
+      if(err) throw err;
+      nome = req.body['name'];
+      if(err) throw err;
+      online = true;
+      var lqs = "select * from tb_user where nm_user= ?";
+      con.query(lqs, [nome], function (err, profResult, fields) {
+        if(err) throw err;
+        res.render('./post/content-home.ejs', { dadosPost: result, session: req.session, dadosProf: profResult });
+      })
+    }
   })
 });
 
 app.get('/cadastro', function (req, res) {
-  res.render('./user/content-cadastro.ejs');
+  res.render('./user/content-cadastro.ejs', { session: req.session});
 })
 
 app.get('/login', (req, res) => {
-  res.render('./user/login.ejs');
-}) 
+  res.render('./user/login.ejs', { session: req.session});
+})
+
+app.get('/disc',(req, res) => {
+  req.session.destroy(function(err) {
+    if (err) throw err;
+  })
+  console.log(req.sessionID)
+  res.end()
+})
 
 app.post('/verifica-login', (req, res) => {
   var senha = req.body['pwd'];
   var email = req.body['email'];
   var sql = "select * from tb_user where email= ?"
-  con.query(sql, [email], function(err, result){
-      if(err) throw err;
-      if(result.length){
-        if(err) throw err;
-          if(senha = result[0]['pwd_user']){
-              req.session.loggedin = true;
-              if(err) throw err;
-              req.session.username = result[0]['nome'];
-              if(err) throw err;
-              req.sessionID = result[0]['id_user'];
-              if(err) throw err;
-              res.redirect('/home');
-              if(err) throw err;
-          }
-          else {alert('Username already taken!');}
+  con.query(sql, [email], function (err, result) {
+    if (err) throw err;
+    if (result.length) {
+      if (err) throw err;
+      if (senha = result[0]['pwd_user']) {
+        req.session.loggedin = true;
+        if (err) throw err;
+        req.session.username = result[0]['nm_user'];
+        if (err) throw err;
+        req.sessionID = result[0]['id_user'];
+        if (err) throw err;
+        res.redirect('/home');
+        if (err) throw err;
       }
+      else { alert('Username already taken!'); }
+    }
   })
 })
 

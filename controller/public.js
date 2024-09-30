@@ -77,7 +77,7 @@ router.post('/insert-post', (req, res) => {
             if (err) console.log('nao deu pra renomear');
         })
         var sql = "INSERT INTO tb_post (id_user, text, tag, arquivo) VALUES ?";
-        var values = [[1, fields.text.toString(), fields.tag, nameimg]];
+        var values = [[req.sessionID, fields.text.toString(), fields.tag, nameimg]];
         con.query(sql, [values], function (err, result) {
             if (err) throw err;
             console.log("Numero de registros inseridos: " + result.affectedRows);

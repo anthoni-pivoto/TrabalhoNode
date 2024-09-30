@@ -1,90 +1,90 @@
-<%- include('../header'); %>
-    <div class="main-container">
-        <div class="feed-container">
-            <div class="post">
-                <div class="profile-pic">
-                    <img src="https://via.placeholder.com/50" alt="Foto de Perfil">
+<% if(session){ %>
+    <%- include('../header-login'); %>
+<% }else { %>
+    <%- include('../header'); %>
+<% } %>
+<div class="main-container">
+    <div class="feed-container">
+        <% if(session){ %>
+        <div class="post">
+            <div class="profile-pic">
+                <img src="imagens/<%=dadosProf.prof_pic%>" alt="foto perfil">
+            </div>
+            <div class="post-content">
+                <div class="user-info">
+                    <span class="username"><%= dadosProf.nm_user%></span>
+                    <span class="handle"><%= dadosProf.nickname%></span>
                 </div>
-                <div class="post-content">
-                    <div class="user-info">
-                        <span class="username">João Silva</span>
-                        <span class="handle">@joaosilva</span>
-                        <span class="time">· 1h</span>
-                    </div>
-                    <div class="text-content">
-                        <form action="/insert-post" method="post" enctype="multipart/form-data">
-                            <label for="tag">Assunto</label>
-                            <select name="tag" id="tag">
-                                <option value="humor">Humor</option>
-                                <option value="ass-serio">Assunto sério</option>
-                                <option value="jogos">Jogos</option>
-                                <option value="midia">Filme/serie</option>
-                                <option value="anime">Anime</option>
-                                <option value="saude">Saúde</option>
-                            </select>
-                            <label for="text">No que você está pensando:</label>
-                            <input type="textarea" id="text" name="text">
-                            <input type="file" name="arquivo"><br>
-                            <input type="submit" value="Postar">
-                        </form>
-                    </div>
+                <div class="text-content">
+                    <form action="/insert-post" method="post" enctype="multipart/form-data">
+                        <label for="tag">Assunto</label>
+                        <select name="tag" id="tag">
+                            <option value="humor">Humor</option>
+                            <option value="ass-serio">Assunto sério</option>
+                            <option value="jogos">Jogos</option>
+                            <option value="midia">Filme/serie</option>
+                            <option value="anime">Anime</option>
+                            <option value="saude">Saúde</option>
+                        </select>
+                        <label for="text">No que você está pensando:</label>
+                        <input type="textarea" id="text" name="text">
+                        <input type="file" name="arquivo"><br>
+                        <input type="submit" value="Postar">
+                    </form>
                 </div>
-            </div>  
-            <div class="feed-container"></div>
-            <% if (dadosPost){dadosPost.forEach(function(dados){ %>
-                    <div class="post">
-                        <div class="profile-pic">
-                            <img src="imagens/<%=dados.prof_pic%>" alt="Foto de Perfil">
-                        </div>
-                        <div class="post-content">
-                            <div class="user-info">
-                                <span class="username"><%= dados.nm_user %></span>
-                                <span class="handle">@<%= dados.nickname %></span>
-                                <span class="time"> · <% var data_info = dados.data_dif - dados.data%> <%= data_info%> d</span>
-                                <span class="tag"> · <%= dados.tag %></span>
-                            </div>
-                            <div class="text-content">
-                                <%= dados.text %><br>
-                                <img src="imagens/<%=dados.arquivo %>" class="mx-auto d-block" style ="height:100px"/>
-                            </div>
-                        </div>
-                    </div>
-                <% }) } %>
-                <!-- Post 2 -->
-                <div class="post">
-                    <div class="profile-pic">
-                        <img src="https://via.placeholder.com/50" alt="Foto de Perfil">
-                    </div>
-                    <div class="post-content">
-                        <div class="user-info">
-                            <span class="username">Maria Souza</span>
-                            <span class="handle">@mariasouza</span>
-                            <span class="time">· 2h</span>
-                        </div>
-                        <div class="text-content">
-                            Adorando trabalhar com front-end! 🌟 #desenvolvimentoweb
-                        </div>
-                    </div>
+            </div>
+        </div>
+        <% } %>
+        <% if (dadosPost) { dadosPost.forEach(function(dados) { %>
+        <div class="post">
+            <div class="profile-pic">
+                <img src="imagens/<%=dados.prof_pic%>" alt="Foto de Perfil">
+            </div>
+            <div class="post-content">
+                <div class="user-info">
+                    <span class="username"><%= dados.nm_user %></span>
+                    <span class="handle">@<%= dados.nickname %></span>
+                    <span class="time"> · <% var data_info=dados.data_dif - dados.data %> <%= data_info %> d</span>
+                    <span class="tag"> · <%= dados.tag %></span>
                 </div>
-
-                <!-- Post 3 -->
-                <div class="post">
-                    <div class="profile-pic">
-                        <img src="https://via.placeholder.com/50" alt="Foto de Perfil">
-                    </div>
-                    <div class="post-content">
-                        <div class="user-info">
-                            <span class="username">Carlos Santos</span>
-                            <span class="handle">@carlossantos</span>
-                            <span class="time">· 3h</span>
-                        </div>
-                        <div class="text-content">
-                            Novidades chegando em breve, fiquem ligados! #technews
-                        </div>
-                    </div>
+                <div class="text-content">
+                    <%= dados.text %><br>
+                    <img src="imagens/<%= dados.arquivo %>" class="mx-auto d-block" style="height:100px" />
+                </div>
+            </div>
+        </div>
+        <% }) } %>
+        <div class="post">
+            <div class="profile-pic">
+                <img src="https://via.placeholder.com/50" alt="Foto de Perfil">
+            </div>
+            <div class="post-content">
+                <div class="user-info">
+                    <span class="username">Maria Souza</span>
+                    <span class="handle">@mariasouza</span>
+                    <span class="time">· 2h</span>
+                </div>
+                <div class="text-content">
+                    Adorando trabalhar com front-end! 🌟 #desenvolvimentoweb
+                </div>
+            </div>
+        </div>
+        <div class="post">
+            <div class="profile-pic">
+                <img src="https://via.placeholder.com/50" alt="Foto de Perfil">
+            </div>
+            <div class="post-content">
+                <div class="user-info">
+                    <span class="username">Carlos Santos</span>
+                    <span class="handle">@carlossantos</span>
+                    <span class="time">· 3h</span>
+                </div>
+                <div class="text-content">
+                    Novidades chegando em breve, fiquem ligados! #technews
                 </div>
             </div>
         </div>
     </div>
-    <br>    
+</div>
+<br>
 <%- include('../footer'); %>

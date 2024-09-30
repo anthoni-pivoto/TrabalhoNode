@@ -1,4 +1,9 @@
-<%- include('../header'); %>
+
+<% if(session.username){%>
+    <%- include('../header-login'); %>
+<% }else{ %>
+    <%- include('../header'); %>
+<% } %>
     <div class="main-container">
         <div class="feed-container">
             <div class="form-container">
