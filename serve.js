@@ -38,9 +38,9 @@ app.get('/home', function (req, res) {
       res.render('./post/content-home.ejs', { dadosPost: result, session: null, dadosProf: null});
     }else{
       if(err) throw err;
-      nome = req.body['name'];
+      let nome = req.body['name'];
       if(err) throw err;
-      online = true;
+      let online = true;
       var lqs = "select * from tb_user where nm_user= ?";
       con.query(lqs, [nome], function (err, profResult, fields) {
         if(err) throw err;
